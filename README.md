@@ -135,20 +135,22 @@ _Examples_:
 
 ---
 
-Contributing
+## Contributing
+
 If you encounter any issue or would like to suggest improvements, please:
 
-Fork the repository.
+1. Fork the repository.  
+2. Create a branch: `git checkout -b my-feature-branch`.  
+3. Commit your changes: `git commit -m "Describe your change"`.  
+4. Push to your fork: `git push origin my-feature-branch`.  
+5. Open a Pull Request against the `main` branch.  
 
-Create a branch: git checkout -b my-feature-branch.
+We’ll review and merge as soon as possible.  
 
-Commit your changes: git commit -m "Describe your change".
+## License
 
-Push to your fork: git push origin my-feature-branch.
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.  
 
-Open a Pull Request against the main branch.
+---
 
-We’ll review and merge as soon as possible.
-
-License
-This project is licensed under the MIT License. See LICENSE for details.
+You now have instructions for raising PRs and the project license included.
