@@ -135,7 +135,7 @@ _Examples_:
 
 ---
 
-```markdown
+
 ## Contributing
 
 If you encounter any issue or would like to suggest improvements, please:
