@@ -25,8 +25,8 @@ This is an Express-based Node.js application that uses `whatsapp-web.js` to send
 
 1. Clone this repository:  
    ```bash
-   git clone https://your-repo-url.git
-   cd your-repo-url
+   git clone https://github.com/ghostuser-bug/WhatsApp-Bot.git
+   cd WhatsApp-Bot
    ```  
 2. Install dependencies:  
    ```bash
