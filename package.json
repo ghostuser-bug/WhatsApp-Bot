@@ -1,5 +1,5 @@
 {
-  "name": "whatsapp-sender-by-Jenskins",
+  "name": "whatsapp-sender",
   "version": "1.0.0",
   "description": "A simple WhatsApp sender with web interface",
   "main": "server.js",
