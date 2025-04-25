@@ -157,7 +157,8 @@ If you encounter any issue or would like to suggest improvements, please:
 5. Open a Pull Request against the `main` branch on the original repo.
 
 I’ll review and merge as soon as possible.  
-```
+
+---
 
 ## License
 
