@@ -1,68 +1,138 @@
-# WhatsApp SenderA simple WhatsApp sender with a web interface, supporting scheduled messages and file uploads.---## Features- Send WhatsApp messages to individuals or groups- Schedule messages for future delivery- Upload `.txt` files to send as messages- Web-based interface with QR code authentication---## Requirements- Node.js (v14 or higher recommended)- npm (Node Package Manager)- WhatsApp account (for QR code login)---## Installation### 1. Clone the Repository```bashgit clone https://github.com/yourusername/WhatsApp-Bot.gitcd WhatsApp-Bot
-2. Install Dependencies
-Windows / Linux
-bash
-Run
-npm install
-Termux (Android)
-Install Node.js and git:
-bash
-Run
-pkg install nodejs git
-Clone and install:
-bash
-Run
-git clone https://github.com/yourusername/WhatsApp-Bot.gitcd WhatsApp-Botnpm install
-Usage
-Start the Server
-Windows / Linux
-bash
-Run
-npm start
-Or for development with auto-reload:
+# WhatsApp Sender Application
 
-bash
-Run
-npm run dev
-Termux
-bash
-Run
-npm start
-Access the Web Interface
-Open your browser and go to:
+This is an Express-based Node.js application that uses `whatsapp-web.js` to send WhatsApp messages (text or `.txt` file contents), schedule messages via cron, log activity, and handle file uploads.  
 
-plaintext
+## Features
 
-http://localhost:3000
-If running on Termux/Android, find your device's IP address (e.g., ip addr show) and access:
+- Serve a web UI (in `public/index.html`) to display QR code and status  
+- Send immediate or scheduled messages  
+- Upload a `.txt` file to send its contents as a message  
+- Automatic retry and queueing  
+- Logout, status, and “current chat” endpoints  
+- Detailed logging to `logs/app.log` and automatic upload cleanup (`uploads/`) 
 
-plaintext
+---
 
-http://<your-device-ip>:3000
-Login with WhatsApp
-On the web interface, scan the QR code using WhatsApp on your phone (Menu > Linked Devices).
-Wait for the client to connect.
-Send a Message
-Enter the recipient's phone number (with country code, e.g., 60123456789 for Malaysia).
-Enter your message or upload a .txt file.
-(Optional) Set a schedule time for future delivery.
-Click Send.
-To send to a group:
+## Prerequisites
 
-Use the group ID (e.g., group:1234567890@g.us).
-You can find group IDs by sending a message to the group and checking your WhatsApp Web session.
-Notes
-Do not share your whatsapp-session folder or any authentication/session files.
-Uploaded files and logs are stored locally and should be managed according to your privacy needs.
-If you encounter issues with QR code scanning, try restarting the server and refreshing the page.
-Troubleshooting
-Port already in use: Change the port in server.js or stop the conflicting service.
-Permission errors on Termux: Use chmod to grant permissions or run as a user with sufficient rights.
-Dependencies not installing: Ensure your Node.js version is up to date.
-License
-MIT
+- **Node.js** v14+ and **npm**  
+- **Git** (to clone repo)  
+- A modern browser to scan QR code  
 
-Credits
-whatsapp-web.js
-express
-socket.io
+---
+
+## Installation (all platforms)
+
+1. Clone this repository:  
+   ```bash
+   git clone https://your-repo-url.git
+   cd your-repo-url
+   ```  
+2. Install dependencies:  
+   ```bash
+   npm install
+   ```  
+3. Ensure directories exist (the app does this automatically on first run):  
+   - `logs/` for `app.log`  
+   - `uploads/` for incoming `.txt` files   
+
+---
+
+## Configuration
+
+- By default the server listens on port **3000**. To change, set environment variable `PORT`.  
+- Sessions are stored under `./whatsapp-session` (managed by `LocalAuth`).  
+
+---
+
+## Running the App
+
+### Termux (Android)
+
+1. **Install Node.js**  
+   ```bash
+   pkg update && pkg upgrade
+   pkg install nodejs git
+   ```  
+2. **Clone & install** (as above).  
+3. **Launch**  
+   ```bash
+   npm start
+   ```  
+4. In your Android browser, open `http://localhost:3000`. Scan the QR code with your WhatsApp mobile app.  
+
+### Linux (Ubuntu/Debian)
+
+1. **Install Node.js & Git**  
+   ```bash
+   sudo apt update
+   sudo apt install nodejs npm git
+   ```  
+2. **Clone & install** (as above).  
+3. **Start**  
+   ```bash
+   npm start
+   ```  
+4. Open `http://localhost:3000` in your browser, scan QR code.  
+
+### Windows
+
+1. Download and install Node.js (includes npm) from https://nodejs.org.  
+2. Open **PowerShell**, then clone and install:  
+   ```powershell
+   git clone https://your-repo-url.git
+   cd your-repo-url
+   npm install
+   npm start
+   ```  
+3. In your browser navigate to `http://localhost:3000`, scan QR.  
+
+---
+
+## Usage
+
+Once the client is “ready” (shown in the UI), you have these HTTP endpoints:
+
+| Endpoint             | Method | Payload / Query                             | Description                                              |
+|----------------------|--------|----------------------------------------------|----------------------------------------------------------|
+| `/api/send`          | POST   | `to` (string), `text` (string)               | Send immediate text message                              |
+|                      |        | _or_ `messageFile` (.txt upload)             | Send uploaded file content                               |
+|                      |        | optional `scheduleTime` (ISO datetime)       | Schedule message for future                              |
+| `/api/status`        | GET    | —                                            | Returns `{ qrCode, clientReady, queueLength }`           |
+| `/api/logout`        | POST   | —                                            | Logout WhatsApp session; client will re-initialize       |
+| `/api/current-chat`  | GET    | —                                            | Info on how to capture a group ID by messaging in app   |
+
+_Examples_:
+
+- Send now:  
+  ```bash
+  curl -X POST http://localhost:3000/api/send \
+    -H "Content-Type: application/json" \
+    -d '{"to":"+1234567890","text":"Hello from API!"}'
+  ```
+- Schedule for later:  
+  ```bash
+  curl -X POST http://localhost:3000/api/send \
+    -F to="+1234567890" \
+    -F messageFile="@./note.txt" \
+    -F scheduleTime="2025-05-01T10:00:00Z"
+  ```
+
+---
+
+## Logs & Uploads
+
+- **Logs**: `logs/app.log` captures timestamps, events, errors.  
+- **Uploads**: `.txt` files saved to `uploads/`, processed, then deleted.   
+
+---
+
+## Troubleshooting
+
+- **Stuck on QR**: ensure no old session in `whatsapp-session`; you can delete that folder and restart.  
+- **Port in use**: set `PORT` env var, e.g. `PORT=4000 npm start`.  
+- **Permissions** (Termux/Linux): ensure Node can write to project directory.
+
+---
+
+Now you’re ready to send WhatsApp messages programmatically across Termux, Linux, and Windows!
