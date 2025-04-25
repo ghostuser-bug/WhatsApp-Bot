@@ -134,5 +134,3 @@ _Examples_:
 - **Permissions** (Termux/Linux): ensure Node can write to project directory.
 
 ---
-
-Now you’re ready to send WhatsApp messages programmatically across Termux, Linux, and Windows!
