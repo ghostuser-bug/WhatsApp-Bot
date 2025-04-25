@@ -134,3 +134,21 @@ _Examples_:
 - **Permissions** (Termux/Linux): ensure Node can write to project directory.
 
 ---
+
+Contributing
+If you encounter any issue or would like to suggest improvements, please:
+
+Fork the repository.
+
+Create a branch: git checkout -b my-feature-branch.
+
+Commit your changes: git commit -m "Describe your change".
+
+Push to your fork: git push origin my-feature-branch.
+
+Open a Pull Request against the main branch.
+
+We’ll review and merge as soon as possible.
+
+License
+This project is licensed under the MIT License. See LICENSE for details.
