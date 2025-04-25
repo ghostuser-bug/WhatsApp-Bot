@@ -135,22 +135,32 @@ _Examples_:
 
 ---
 
+```markdown
 ## Contributing
 
 If you encounter any issue or would like to suggest improvements, please:
 
-1. Fork the repository.  
-2. Create a branch: `git checkout -b my-feature-branch`.  
-3. Commit your changes: `git commit -m "Describe your change"`.  
-4. Push to your fork: `git push origin my-feature-branch`.  
-5. Open a Pull Request against the `main` branch.  
+1. Fork the repository:  
+   <https://github.com/ghostuser-bug/WhatsApp-Bot>  
+2. Create a branch:  
+   ```bash
+   git checkout -b my-feature-branch
+   ```
+3. Commit your changes:  
+   ```bash
+   git commit -m "Describe your change"
+   ```
+4. Push to your fork:  
+   ```bash
+   git push origin my-feature-branch
+   ```
+5. Open a Pull Request against the `main` branch on the original repo.
 
-We’ll review and merge as soon as possible.  
+I’ll review and merge as soon as possible.  
+```
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.  
+This project is licensed under the MIT License.
 
 ---
-
-You now have instructions for raising PRs and the project license included.
